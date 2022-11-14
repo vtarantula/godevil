@@ -4,7 +4,7 @@ package main
 // #cgo LDFLAGS: ${SRCDIR}/../src/clib/clib.a
 // #include <stdlib.h>
 // #include <clib.h>
-import "C"
+// import "C"
 import (
 	"errors"
 	"flag"
@@ -13,7 +13,6 @@ import (
 	"godevil/src/controller"
 	"os"
 	"runtime"
-	"unsafe"
 )
 
 func getConfigs(config_type string) []string {
@@ -49,12 +48,12 @@ func cleanup() {
 	os.Exit(return_code)
 }
 
-func RunC() {
-	mess := C.CString("This is another string!")
-	defer C.free(unsafe.Pointer(mess))
-	C.cPrintMessage(mess)
-	C.cGoBroker()
-}
+// func RunC() {
+// 	mess := C.CString("This is another string!")
+// 	defer C.free(unsafe.Pointer(mess))
+// 	C.cPrintMessage(mess)
+// 	C.cGoBroker()
+// }
 
 func main() {
 	defer cleanup()
@@ -63,6 +62,6 @@ func main() {
 		err_msg := fmt.Sprintf("unsupported platform: %s", runtime.GOOS)
 		panic(errors.New(err_msg))
 	}
-	RunC()
+	// RunC()
 	parseFlags()
 }
