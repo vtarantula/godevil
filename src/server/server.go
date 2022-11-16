@@ -13,11 +13,11 @@ var (
 	contentJSON string = "application/json"
 )
 
-func setHeaders(w http.ResponseWriter) {
-	w.Header().Set("Content-Type", contentJSON)
-	w.Header().Add("Access-Control-Allow-Origin", "*")
-	w.Header().Add("Access-Control-Allow-Methods", "GET, POST")
-	w.Header().Add("Access-Control-Allow-Headers", "Accept, Contrnt-Type, Content-Length, Authorization, X-CSRF-Token, Accept-Encoding")
+func setHeaders(w *http.ResponseWriter) {
+	(*w).Header().Set("Content-Type", contentJSON)
+	// (*w).Header().Add("Access-Control-Allow-Origin", "*")
+	(*w).Header().Add("Access-Control-Allow-Methods", "GET, POST")
+	(*w).Header().Add("Access-Control-Allow-Headers", "Accept, Contrnt-Type, Content-Length, Authorization, X-CSRF-Token, Accept-Encoding")
 }
 
 func index(w http.ResponseWriter, r *http.Request) {
@@ -44,7 +44,7 @@ func deviceHandler(w http.ResponseWriter, r *http.Request) {
 // Middleware to perform operations before working on the actual request
 func middlewareHandler(handler http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		setHeaders(w)
+		setHeaders(&w)
 		handler.ServeHTTP(w, r)
 	})
 }

@@ -22,9 +22,12 @@ func getConfigs(config_type string) []string {
 		l_config = append(l_config, "net")
 	case "storage":
 		l_config = append(l_config, "storage")
+	case "memory":
+		l_config = append(l_config, "memory")
 	case "all":
 		l_config = append(l_config, "net")
 		l_config = append(l_config, "storage")
+		l_config = append(l_config, "memory")
 	default:
 		panic(errors.New("invalid option: " + config_type))
 	}

@@ -32,7 +32,7 @@ func Run(l_config []string) {
 	go runHTTPServer(wg)
 
 	fmt.Printf("Gathering information about: %v\n", l_config)
-	//TODO: Add support for n/w
+	//TODO: Add support for n/w and memory
 	for _, v := range l_config {
 		if strings.ToLower(v) == "storage" {
 			wg.Add(1)
