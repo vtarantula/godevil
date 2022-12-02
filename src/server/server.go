@@ -59,6 +59,7 @@ func getMux() *http.ServeMux {
 	return mux
 }
 
+// TODO: Add support for websockets(WS). As of now, we are not adding it as WS is not part of stdlib
 func NewHttp(host string, port uint16) error {
 	address := net.JoinHostPort(host, fmt.Sprintf("%d", port))
 	fmt.Printf("Webserver listening on %s to accept requests...\n", address)

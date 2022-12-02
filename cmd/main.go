@@ -42,6 +42,13 @@ func parseFlags() {
 	controller.Run(l_config)
 }
 
+// func RunC() {
+// 	mess := C.CString("This is another string!")
+// 	defer C.free(unsafe.Pointer(mess))
+// 	C.cPrintMessage(mess)
+// 	C.cGoBroker()
+// }
+
 func cleanup() {
 	return_code := app.EXIT_SUCCESS_CODE
 	if r := recover(); r != nil {
@@ -50,13 +57,6 @@ func cleanup() {
 	}
 	os.Exit(return_code)
 }
-
-// func RunC() {
-// 	mess := C.CString("This is another string!")
-// 	defer C.free(unsafe.Pointer(mess))
-// 	C.cPrintMessage(mess)
-// 	C.cGoBroker()
-// }
 
 func main() {
 	defer cleanup()
