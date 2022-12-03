@@ -51,6 +51,7 @@ func Run(l_config []string, httpserver bool) {
 	s2.Add(2)
 	fmt.Printf("Union: %v\n", s1.Union(s2))
 	fmt.Printf("Intersection: %v\n", s1.Intersect(s2))
+
 	// nw, _ := netutil.GetNetworkIPv4("172.24.32.66")
 	// fmt.Printf("Network: %v\n", nw)
 

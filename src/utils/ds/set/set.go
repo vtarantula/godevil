@@ -44,23 +44,25 @@ func (set *Set[T]) Delete(val T) {
 	}
 }
 
-func (set *Set[T]) Union(otherset *Set[T]) map[T]bool {
-	unionset := New[T]()
+func (set *Set[T]) Union(otherset *Set[T]) []T {
+	l_union := make([]T, 0)
 	for v := range set.m_data {
-		unionset.Add(v)
+		l_union = append(l_union, v)
 	}
 	for v := range otherset.m_data {
-		unionset.Add(v)
-	}
-	return unionset.m_data
-}
-
-func (set *Set[T]) Intersect(otherset *Set[T]) map[T]bool {
-	intersectset := New[T]()
-	for v := range set.m_data {
-		if otherset.Contains(v) {
-			intersectset.Add(v)
+		if !set.Contains(v) {
+			l_union = append(l_union, v)
 		}
 	}
-	return intersectset.m_data
+	return l_union
+}
+
+func (set *Set[T]) Intersect(otherset *Set[T]) []T {
+	l_intersect := make([]T, 0)
+	for v := range set.m_data {
+		if otherset.Contains(v) {
+			l_intersect = append(l_intersect, v)
+		}
+	}
+	return l_intersect
 }
