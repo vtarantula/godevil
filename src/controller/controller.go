@@ -25,14 +25,17 @@ func runHTTPServer(wg *sync.WaitGroup) {
 	wg.Done()
 }
 
-func Run(l_config []string) {
+func Run(l_config []string, httpserver bool) {
 	wg := &sync.WaitGroup{}
 
-	wg.Add(1)
-	go runHTTPServer(wg)
+	fmt.Printf("Received HTTP server setting to: %v\n", httpserver)
+	if httpserver {
+		wg.Add(1)
+		go runHTTPServer(wg)
+	}
 
-	fmt.Printf("Gathering information about: %v\n", l_config)
 	//TODO: Add support for n/w and memory
+	fmt.Printf("Gathering information about: %v\n", l_config)
 	for _, v := range l_config {
 		if strings.ToLower(v) == "storage" {
 			wg.Add(1)

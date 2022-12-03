@@ -36,10 +36,11 @@ func getConfigs(config_type string) []string {
 
 func parseFlags() {
 	var configType = flag.String("type", "all", "Configuration type. Can be one of net and storage")
+	var isHTTP = flag.Bool("http", false, "Run HTTP Server. Defaults to false")
 	flag.Parse()
 	fmt.Printf("Args: %s\n", *configType)
 	l_config := getConfigs(*configType)
-	controller.Run(l_config)
+	controller.Run(l_config, *isHTTP)
 }
 
 // func RunC() {

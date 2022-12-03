@@ -1,39 +1,53 @@
 package set
 
-type Set struct {
-	m_integer map[int]bool
+import (
+	"sync"
+)
+
+// Contains unique keys and permits set operations
+type Set[T comparable] struct {
+	mu        sync.RWMutex
+	m_integer map[T]bool
 }
 
-func New() *Set {
-	set := &Set{
-		m_integer: make(map[int]bool),
+func New[T comparable]() *Set[T] {
+	set := &Set[T]{
+		m_integer: make(map[T]bool),
 	}
 	return set
 }
 
-func (set *Set) Size() int {
+func (set *Set[T]) Size() int {
 	return len(set.m_integer)
 }
 
-func (set *Set) Contains(val int) bool {
+func (set *Set[T]) Empty() bool {
+	return len(set.m_integer) == 0
+}
+
+func (set *Set[T]) Contains(val T) bool {
 	if _, ok := set.m_integer[val]; ok {
 		return true
 	}
 	return false
 }
 
-func (set *Set) Add(val int) {
+func (set *Set[T]) Add(val T) {
+	set.mu.Lock()
 	set.m_integer[val] = true
+	set.mu.Unlock()
 }
 
-func (set *Set) Delete(val int) {
+func (set *Set[T]) Delete(val T) {
 	if set.Contains(val) {
+		set.mu.Lock()
 		delete(set.m_integer, val)
+		set.mu.Unlock()
 	}
 }
 
-func (set *Set) Union(otherset *Set) *Set {
-	unionset := New()
+func (set *Set[T]) Union(otherset *Set[T]) *Set[T] {
+	unionset := New[T]()
 	for v := range set.m_integer {
 		unionset.Add(v)
 	}
@@ -43,8 +57,8 @@ func (set *Set) Union(otherset *Set) *Set {
 	return unionset
 }
 
-func (set *Set) Intersect(otherset *Set) *Set {
-	intersectset := New()
+func (set *Set[T]) Intersect(otherset *Set[T]) *Set[T] {
+	intersectset := New[T]()
 	for v := range set.m_integer {
 		if otherset.Contains(v) {
 			intersectset.Add(v)
