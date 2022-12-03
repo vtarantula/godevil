@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"godevil/src/hardware/disk"
 	"godevil/src/server"
-	"godevil/src/utils/ds/set"
 	"strings"
 	"sync"
 )
@@ -44,13 +43,13 @@ func Run(l_config []string, httpserver bool) {
 		}
 	}
 
-	s1 := set.New[int]()
-	s2 := set.New[int]()
-	s1.Add(1)
-	s2.Add(1)
-	s2.Add(2)
-	fmt.Printf("Union: %v\n", s1.Union(s2))
-	fmt.Printf("Intersection: %v\n", s1.Intersect(s2))
+	// s1 := set.New[int]()
+	// s2 := set.New[int]()
+	// s1.Add(1)
+	// s2.Add(1)
+	// s2.Add(2)
+	// fmt.Printf("Union: %v\n", s1.Union(s2))
+	// fmt.Printf("Intersection: %v\n", s1.Intersect(s2))
 
 	// nw, _ := netutil.GetNetworkIPv4("172.24.32.66")
 	// fmt.Printf("Network: %v\n", nw)
